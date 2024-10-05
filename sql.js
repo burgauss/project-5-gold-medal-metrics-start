@@ -6,7 +6,7 @@ Returns a SQL query string that will create the Country table with four columns:
 */
 
 const createCountryTable = () => {
-  let createCountryTable = `CREATE TABLE country (
+  let createCountryTable = `CREATE TABLE Country (
   name TEXT NOT NULL,
   code TEXT NOT NULL,
   gdp INTEGER,
@@ -19,7 +19,7 @@ Returns a SQL query string that will create the GoldMedal table with ten columns
 */
 
 const createGoldMedalTable = () => {
-  let createGoldMedalTable = `CREATE TABLE goldMedal (
+  let createGoldMedalTable = `CREATE TABLE GoldMedal (
     id INTEGER PRIMARY KEY NOT NULL,
     year INTEGER NOT NULL,
     city TEXT NOT NULL,
@@ -146,7 +146,7 @@ Returns a SQL query string that will find the number of male medalists.
 */
 
 const numberMenMedalists = country => {
-  let queryNumberMenMedalist = `SELECT COUNT(*)
+  let queryNumberMenMedalist = `SELECT COUNT(DISTINCT name)
   FROM goldmedal
   WHERE Gender = "Men" AND Country = "${country}";`
   return queryNumberMenMedalist;
@@ -157,7 +157,7 @@ Returns a SQL query string that will find the number of female medalists.
 */
 
 const numberWomenMedalists = country => {
-  let queryNumberWomenMedalist = `SELECT COUNT(*)
+  let queryNumberWomenMedalist = `SELECT COUNT(DISTINCT name)
   FROM goldMedal
   WHERE gender = "Women" AND country = "${country}";`
   return queryNumberWomenMedalist;
@@ -203,12 +203,12 @@ const orderedSports = (country, field, sortAscending) => {
   FROM goldMedal WHERE Country="${country}")) AS percent
   FROM goldMedal
   WHERE Country ="${country}"
-  GROUP BY sport;`
+  GROUP BY sport `
   if (field && sortAscending !== null){
     queryOrderedSport += `ORDER BY ${field} `
     queryOrderedSport += sortAscending ? `ASC` : `DESC`;
   }
-    
+  // console.log(queryOrderedSport);
   return queryOrderedSport;
 };
 
